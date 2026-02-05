@@ -14,13 +14,23 @@ def adicionar():
     
     return tarefa
 
+def listar_tarefas(lista):
+    for indice, tarefa in enumerate(lista):
+        print(f"{indice + 1}. {tarefa[0]}, (Grau de urgência: {tarefa[1]})")
 
-lista = []
+
+lista_de_tarefas = []
 while True:
-    print("Selecione uma ação:\n1. Adicionar tarefa.")
+    print("Selecione uma ação:\n1. Adicionar tarefa."\
+    "\n2. Listar tarefas.")
     acao = int(input())
 
     if acao == 1:
         nova_tarefa = adicionar()
         if nova_tarefa is not None:
-            lista.append(nova_tarefa)
+            lista_de_tarefas.append(nova_tarefa)
+    elif acao == 2:
+        if len(lista_de_tarefas) != 0:
+            listar_tarefas(lista_de_tarefas)
+        else:
+            print("Sem tarefas por enquanto.")
