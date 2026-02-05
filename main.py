@@ -10,29 +10,52 @@ def adicionar():
 
     tarefa = []
     tarefa.append(campos[0].strip())
+    tarefa.append("Pendente")
     tarefa.append(campos[1].strip())
+    
     
     return tarefa
 
 def listar_tarefas(lista):
     for indice, tarefa in enumerate(lista):
-        print(f"{indice + 1}. {tarefa[0]}, (Grau de urgência: {tarefa[1]})")
+        print(f"{indice + 1}. {tarefa[0]} - Status: {tarefa[1]} - (Grau de urgência: {tarefa[2]})")
+
+def marcar_concluida(lista):
+    n = int(input("Digite o número da tarefa concluída: "))
+    
+    if 1 <= n <= len(lista):
+        lista[n-1][1] = "Concluída"
+        print("Tarefa marcada como concluída!")
+    else:
+        print("Tarefa inexistente.")
+
 
 
 lista_de_tarefas = []
 while True:
     print("Selecione uma ação:\n1. Adicionar tarefa."\
-    "\n2. Listar tarefas.")
+    "\n2. Listar tarefas."
+    "\n3. Marcar tarefa concluída.")
     acao = int(input())
 
     if acao == 1:
         nova_tarefa = adicionar()
         if nova_tarefa is not None:
             lista_de_tarefas.append(nova_tarefa)
+
     elif acao == 2:
         if len(lista_de_tarefas) != 0:
             listar_tarefas(lista_de_tarefas)
         else:
             print("Sem tarefas por enquanto.")
+
+    elif acao == 3:
+        if len(lista_de_tarefas) == 0:
+            print("Sem tarefas por enquanto.")
+        else:
+            listar_tarefas(lista_de_tarefas)
+            marcar_concluida(lista_de_tarefas)
+            
+    
     else:
         print("Digite um número válido!")
