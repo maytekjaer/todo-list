@@ -34,3 +34,5 @@ while True:
             listar_tarefas(lista_de_tarefas)
         else:
             print("Sem tarefas por enquanto.")
+    else:
+        print("Digite um número válido!")
