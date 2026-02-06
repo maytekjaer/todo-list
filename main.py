@@ -35,6 +35,8 @@ def marcar_concluida(lista):
 
 
 
+
+
 lista_de_tarefas = []
 while True:
     print("Selecione uma ação:\n1. Adicionar tarefa."\
