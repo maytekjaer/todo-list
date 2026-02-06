@@ -10,7 +10,7 @@ def adicionar():
 
     tarefa = []
     tarefa.append(campos[0].strip())
-    tarefa.append("Pendente")
+    tarefa.append(False)
     tarefa.append(campos[1].strip())
     
     
@@ -18,6 +18,10 @@ def adicionar():
 
 def listar_tarefas(lista):
     for indice, tarefa in enumerate(lista):
+        if tarefa[1] == False:
+            tarefa[1] = "Pendente"
+        else:
+            tarefa[1] = "Concluída"
         print(f"{indice + 1}. {tarefa[0]} - Status: {tarefa[1]} - (Grau de urgência: {tarefa[2]})")
 
 def marcar_concluida(lista):
