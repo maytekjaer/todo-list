@@ -1,3 +1,7 @@
+import json
+
+ENDERECO_TAREFAS = "data/tasks.json"
+
 def adicionar():
     print("Preencha com as informações: tarefa, grau de urgência."
                     "\n(Lembre-se de separar com vírgula e espaço!)")
@@ -12,8 +16,6 @@ def adicionar():
     tarefa.append(campos[0].strip())
     tarefa.append(False)
     tarefa.append(campos[1].strip())
-    
-    
     return tarefa
 
 def listar_tarefas(lista):
@@ -33,9 +35,14 @@ def marcar_concluida(lista):
     else:
         print("Tarefa inexistente.")
 
-
-
-
+def carregar_tarefas():
+    lista = []
+    try:
+        with open(ENDERECO_TAREFAS, "r") as arquivo:
+            lista = json.load(arquivo)
+    except FileNotFoundError:
+        pass
+    return lista
 
 lista_de_tarefas = []
 while True:
