@@ -48,11 +48,14 @@ def salvar_tarefas(lista):
     with open(ENDERECO_TAREFAS, "w") as arquivo:
         json.dump(lista, arquivo, indent=4, ensure_ascii=False)
 
-lista_de_tarefas = []
+lista_de_tarefas = carregar_tarefas()
+
 while True:
     print("Selecione uma ação:\n1. Adicionar tarefa."\
     "\n2. Listar tarefas."
-    "\n3. Marcar tarefa concluída.")
+    "\n3. Marcar tarefa concluída." \
+    "\n4. Sair.")
+
     acao = int(input())
 
     if acao == 1:
@@ -72,7 +75,10 @@ while True:
         else:
             listar_tarefas(lista_de_tarefas)
             marcar_concluida(lista_de_tarefas)
+
+    elif acao == 4:
+        salvar_tarefas(lista_de_tarefas)
+        break
             
-    
     else:
         print("Digite um número válido!")
