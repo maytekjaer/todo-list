@@ -44,6 +44,10 @@ def carregar_tarefas():
         pass
     return lista
 
+def salvar_tarefas(lista):
+    with open(ENDERECO_TAREFAS, "w") as arquivo:
+        json.dump(lista, arquivo, indent=4, ensure_ascii=False)
+
 lista_de_tarefas = []
 while True:
     print("Selecione uma ação:\n1. Adicionar tarefa."\
