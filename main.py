@@ -41,7 +41,9 @@ def carregar_tarefas():
         with open(ENDERECO_TAREFAS, "r") as arquivo:
             lista = json.load(arquivo)
     except FileNotFoundError:
-        pass
+            pass
+    except json.JSONDecodeError:
+            pass
     return lista
 
 def salvar_tarefas(lista):
