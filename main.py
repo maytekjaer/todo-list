@@ -5,11 +5,13 @@ ENDERECO_TAREFAS = "data/tasks.json"
 def adicionar():
     print("Preencha com as informações: tarefa, grau de urgência."
                     "\n(Lembre-se de separar com vírgula e espaço!)")
+    print("")
     entrada = input()
     campos = entrada.split(",")
 
     if len(campos) != 2:
         print("Formatação incorreta!")
+        print("")
         return None
 
     tarefa = []
@@ -19,12 +21,9 @@ def adicionar():
     return tarefa
 
 def listar_tarefas(lista):
-    for indice, tarefa in enumerate(lista):
-        if tarefa[1] == False:
-            tarefa[1] = "Pendente"
-        else:
-            tarefa[1] = "Concluída"
-        print(f"{indice + 1}. {tarefa[0]} - Status: {tarefa[1]} - (Grau de urgência: {tarefa[2]})")
+    for indice, tarefa, status in enumerate(lista):
+        status = "Concluída" if tarefa[1] else "Pendente"
+        print(f"{indice + 1}. {tarefa[0]} - Status: {status} - (Grau de urgência: {tarefa[2]})")
 
 def marcar_concluida(lista):
     n = int(input("Digite o número da tarefa concluída: "))
@@ -32,8 +31,10 @@ def marcar_concluida(lista):
     if 1 <= n <= len(lista):
         lista[n-1][1] = "Concluída"
         print("Tarefa marcada como concluída!")
+        print("")
     else:
         print("Tarefa inexistente.")
+        print("")
 
 def carregar_tarefas():
     lista = []
@@ -50,13 +51,26 @@ def salvar_tarefas(lista):
     with open(ENDERECO_TAREFAS, "w") as arquivo:
         json.dump(lista, arquivo, indent=4, ensure_ascii=False)
 
+def remover_tarefa(lista):
+    n = int(input("Selecione qual tarefa deseja remover: "))
+    print("")
+    if 0 < n <= len(lista):
+        lista.remove(lista[n - 1])
+        print("Tarefa removida com sucesso!")
+    else:
+        print("Essa tarefa não existe!")
+    return lista
+
 lista_de_tarefas = carregar_tarefas()
 
 while True:
+    print("")
     print("Selecione uma ação:\n1. Adicionar tarefa."\
     "\n2. Listar tarefas."
     "\n3. Marcar tarefa concluída." \
-    "\n4. Sair.")
+    "\n4. Remover tarefa."
+    "\n5. Sair.")
+    print("")
 
     acao = int(input())
 
@@ -73,14 +87,24 @@ while True:
 
     elif acao == 3:
         if len(lista_de_tarefas) == 0:
+            print("")
             print("Sem tarefas por enquanto.")
         else:
+            print("")
             listar_tarefas(lista_de_tarefas)
+            print("")
             marcar_concluida(lista_de_tarefas)
 
     elif acao == 4:
+        print("")
+        listar_tarefas(lista_de_tarefas)
+        print("")
+        remover_tarefa(lista_de_tarefas)
+    
+    elif acao == 5:
         salvar_tarefas(lista_de_tarefas)
         break
-            
+
     else:
         print("Digite um número válido!")
+        print("")
