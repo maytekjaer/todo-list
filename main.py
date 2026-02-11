@@ -44,15 +44,29 @@ def listar_tarefas(lista):
         print(f"{indice + 1}) {status} {tarefa[0]}\n   urgência: {tarefa[2]}")
 
 def marcar_concluida(lista):
-    print("")
-    n = int(input("Digite o número da tarefa concluída: "))
-    print("")
+    status = True
+    for i in range(len(lista)):
+        if lista[i][1] == False:
+            status = False
 
-    if 1 <= n <= len(lista):
-        lista[n-1][1] = True
-        print("Tarefa marcada como concluída!")
+    if not status:
+        while True:
+            print("")
+            n = int(input("Digite o número da tarefa concluída: "))
+            print("")
+
+            if 1 <= n <= len(lista):
+                if lista[n-1][1] == False:
+                    lista[n-1][1] = True
+                    print("Tarefa marcada como concluída!")
+                    break
+                else:
+                    print("Essa tarefa já foi concluída, selecione outra tarefa!")
+            else:
+                print("Tarefa inexistente.")
     else:
-        print("Tarefa inexistente.")
+        print("")
+        print("Todas as tarefas já estão concluídas!")
 
 def remover_tarefa(lista):
     if len(lista) != 0:
