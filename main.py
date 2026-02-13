@@ -29,24 +29,31 @@ def adicionar():
         print("Formatação incorreta!")
         print("")
         return None
+    
+    desc = campos[0]
+    urgencia = campos[1]
 
-    tarefa = []
-    tarefa.append(campos[0].strip())
-    tarefa.append(False)
-    tarefa.append(campos[1].strip())
-    print("Tarefa adicionada com sucesso!")
-    print("")
+    tarefa = {
+
+        "desc": desc.strip(),
+        "concluida": False,
+        "urgencia": urgencia.strip()
+
+    }
     return tarefa
 
 def listar_tarefas(lista):
-    for indice, tarefa in enumerate(lista):
-        status = "[x]" if tarefa[1] else "[ ]"
-        print(f"{indice + 1}) {status} {tarefa[0]}\n   urgência: {tarefa[2]}")
+    if not lista:
+        print("Nenhuma tarefa cadastrada.")
+    else:
+        for i, tarefa in enumerate(lista):
+            status = "[x]" if tarefa['concluida'] else "[ ]"
+            print(f"{i + 1}) {status} {tarefa['desc']}\n   urgência: {tarefa['urgencia']}")
 
 def marcar_concluida(lista):
     status = True
     for i in range(len(lista)):
-        if lista[i][1] == False:
+        if lista[i]["concluida"] == False:
             status = False
 
     if not status:
@@ -56,8 +63,8 @@ def marcar_concluida(lista):
             print("")
 
             if 1 <= n <= len(lista):
-                if lista[n-1][1] == False:
-                    lista[n-1][1] = True
+                if not lista[n-1]["concluida"]:
+                    lista[n-1]["concluida"] = True
                     print("Tarefa marcada como concluída!")
                     break
                 else:
@@ -105,6 +112,8 @@ while True:
         nova_tarefa = adicionar()
         if nova_tarefa is not None:
             lista_de_tarefas.append(nova_tarefa)
+            print("Tarefa adicionada com sucesso!")
+            print("")
 
     elif acao == 2:
         if len(lista_de_tarefas) != 0:
